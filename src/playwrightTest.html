@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Key Event Tester</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Basic Responsive Design */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 10px;
+        }
+        #eventInfo {
+            white-space: pre-wrap; /* ensures line breaks and spaces are respected */
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Key Event Tester</h2>
+    <input type="text" id="keyTester" placeholder="Press keys here" autofocus>
+    <button onclick="clearLog()">Clear Log</button>
+    <div id="eventInfo"></div>
+    <script>
+        const keyTester = document.getElementById('keyTester');
+        const eventInfo = document.getElementById('eventInfo');
+        let lastEventTime = 0;
+        let eventTimeout;
+
+        ['beforeinput', 'keydown', 'keyup', 'keypress'].forEach(eventType => {
+            keyTester.addEventListener(eventType, (e) => {
+                const currentTime = Date.now();
+                if (currentTime - lastEventTime > 300) {
+                    addSeparator();
+                }
+                lastEventTime = currentTime;
+
+                clearTimeout(eventTimeout);
+                eventTimeout = setTimeout(addSeparator, 300);
+
+                const info = `
+                    Input Type: ${e.inputType}\n
+                    Event Type: ${e.type}\n
+                    Key: ${e.key}\n
+                    KeyCode: ${e.keyCode}\n
+                    Code: ${e.code}\n
+                    Default Prevented: ${e.defaultPrevented}\n
+                    Is Composing: ${e.isComposing}\n
+                    ----------------------------\n`;
+                eventInfo.textContent += info;
+            });
+        });
+
+        function addSeparator() {
+            eventInfo.textContent += '===========\n';
+        }
+
+        function clearLog() {
+            eventInfo.textContent = '';
+            clearTimeout(eventTimeout);
+        }
+    </script>
+
+</body>
+</html>

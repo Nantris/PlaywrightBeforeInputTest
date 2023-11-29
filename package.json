@@ -1,0 +1,14 @@
+{
+  "name": "key-event-tester",
+  "version": "1.0.0",
+  "description": "Test key events with Playwright",
+  "main": "test.js",
+  "scripts": {
+    "start": "yarn http-server",
+    "test": "node ./src/androidTest.js"
+  },
+  "devDependencies": {
+    "http-server": "*",
+    "playwright": "^1.39.0"
+  }
+}
