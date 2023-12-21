@@ -10,7 +10,6 @@ const { _android: android } = require('playwright');
         const device = devices[0];
         console.log(`Using device: ${device.model()}`);
 
-        // Launch the browser on the Android device
         const context = await device.launchBrowser();
         const page = await context.newPage();
 
@@ -21,7 +20,7 @@ const { _android: android } = require('playwright');
         const inputSelector = '#keyTester';
         await page.click(inputSelector);
 
-        // Simulate key events (Space or Backspace)
+        // Simulate key events (Space/Enter/Backspace)
         await page.keyboard.press('Space');
 
         // Keep the browser open for observation
